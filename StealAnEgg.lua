@@ -1,4 +1,4 @@
---[[
+﻿--[[
     Steal An Egg - Универсальный Хаб
     Игра: Steal An Egg (Roblox)
     Автор: aether-bytess

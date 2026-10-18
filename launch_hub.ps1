@@ -1,4 +1,4 @@
-<#
+﻿<#
 .SYNOPSIS
     Steal-An-Egg Универсальный Лаунчер и Синхронизатор
 .DESCRIPTION
