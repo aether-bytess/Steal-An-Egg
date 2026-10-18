@@ -133,7 +133,7 @@ if (-not (Test-Path $LocalWorkspace)) {
 [void]$TargetWorkspaces.Add($LocalWorkspace)
 
 Write-Host "[*] Discovered $($TargetWorkspaces.Count) target executor workspaces." -ForegroundColor Yellow
-$ItemsToSync = @("StealAnEgg.lua", "run.lua", "hub_loader.lua", "potassium_bridge.lua", "EggESP")
+$ItemsToSync = @("StealAnEgg.lua", "run.lua", "hub_loader.lua", "EggESP")
 
 foreach ($ws in $TargetWorkspaces) {
     $destDir = Join-Path $ws "Steal-An-Egg"
@@ -155,13 +155,23 @@ foreach ($ws in $TargetWorkspaces) {
     Write-Host "    -> Deployed to: $destDir" -ForegroundColor DarkGray
 }
 
-# 3. Clipboard injection for execution
+# 3. Clipboard injection with legacy clip fallback
 $LoadCommand = 'loadstring(readfile("Steal-An-Egg/StealAnEgg.lua"))()'
 
+$copied = $false
 try {
     Set-Clipboard -Value $LoadCommand
-    Write-Host "[+] Copied execution command to clipboard!" -ForegroundColor Green
+    $copied = $true
 } catch {
+    try {
+        $LoadCommand | & "$env:WINDIR\System32\clip.exe"
+        $copied = $true
+    } catch {}
+}
+
+if ($copied) {
+    Write-Host "[+] Copied execution command to clipboard!" -ForegroundColor Green
+} else {
     Write-Host "[!] Note: Clipboard copy failed, use manual string below." -ForegroundColor Yellow
 }
 

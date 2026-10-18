@@ -53,11 +53,114 @@ if not successCore or not parentGui then
     parentGui = LocalPlayer:WaitForChild("PlayerGui")
 end
 
+-- Detect execution source
+local isLocalMode = false
+pcall(function()
+    if typeof(isfile) == "function" and isfile("Steal-An-Egg/StealAnEgg.lua") then
+        isLocalMode = true
+    end
+end)
+
 -- Create Hub ScreenGui
 local screenGui = Instance.new("ScreenGui")
 screenGui.Name = GUI_NAME
 screenGui.ResetOnSpawn = false
 screenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+-- Cloud Method 1 Initialization Notice Modal
+local function showMethodNotice()
+    local modal = Instance.new("Frame")
+    modal.Name = "MethodNoticeModal"
+    modal.Size = UDim2.fromOffset(480, 230)
+    modal.Position = UDim2.new(0.5, -240, 0.5, -115)
+    modal.BackgroundColor3 = Color3.fromRGB(22, 23, 30)
+    modal.BorderSizePixel = 0
+    modal.ZIndex = 10
+    modal.Parent = screenGui
+
+    local mCorner = Instance.new("UICorner")
+    mCorner.CornerRadius = UDim.new(0, 10)
+    mCorner.Parent = modal
+
+    local mStroke = Instance.new("UIStroke")
+    mStroke.Color = Color3.fromRGB(220, 80, 80)
+    mStroke.Thickness = 1.5
+    mStroke.Parent = modal
+
+    local header = Instance.new("TextLabel")
+    header.Size = UDim2.new(1, -24, 0, 36)
+    header.Position = UDim2.new(0, 12, 0, 10)
+    header.Text = "⚠ INITIALIZATION REQUIRED [CODE_0x82]"
+    header.Font = Enum.Font.GothamBold
+    header.TextSize = 14
+    header.TextColor3 = Color3.fromRGB(255, 90, 90)
+    header.TextXAlignment = Enum.TextXAlignment.Left
+    header.BackgroundTransparency = 1
+    header.ZIndex = 11
+    header.Parent = modal
+
+    local msg = Instance.new("TextLabel")
+    msg.Size = UDim2.new(1, -24, 0, 75)
+    msg.Position = UDim2.new(0, 12, 0, 46)
+    msg.Text = "Cloud loader (Method 1) active. Local workspace dependencies and companion bridge are not mounted.\n\nRecommended: Run 'launch_hub.bat' on your PC (Method 2) to initialize workspace modules and bypass network limits."
+    msg.Font = Enum.Font.Gotham
+    msg.TextSize = 12
+    msg.TextColor3 = Color3.fromRGB(200, 205, 220)
+    msg.TextXAlignment = Enum.TextXAlignment.Left
+    msg.TextYAlignment = Enum.TextYAlignment.Top
+    msg.TextWrapped = true
+    msg.BackgroundTransparency = 1
+    msg.ZIndex = 11
+    msg.Parent = modal
+
+    local copyBtn = Instance.new("TextButton")
+    copyBtn.Size = UDim2.new(0.5, -18, 0, 36)
+    copyBtn.Position = UDim2.new(0, 12, 1, -48)
+    copyBtn.Text = "Copy Method 2 Command"
+    copyBtn.Font = Enum.Font.GothamBold
+    copyBtn.TextSize = 12
+    copyBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+    copyBtn.BackgroundColor3 = Color3.fromRGB(45, 90, 160)
+    copyBtn.BorderSizePixel = 0
+    copyBtn.ZIndex = 11
+    copyBtn.Parent = modal
+
+    local cCorner = Instance.new("UICorner")
+    cCorner.CornerRadius = UDim.new(0, 6)
+    cCorner.Parent = copyBtn
+
+    copyBtn.MouseButton1Click:Connect(function()
+        if typeof(setclipboard) == "function" then
+            setclipboard('loadstring(readfile("Steal-An-Egg/StealAnEgg.lua"))()')
+            copyBtn.Text = "Copied to Clipboard!"
+            copyBtn.BackgroundColor3 = Color3.fromRGB(40, 140, 80)
+        end
+    end)
+
+    local dismissBtn = Instance.new("TextButton")
+    dismissBtn.Size = UDim2.new(0.5, -18, 0, 36)
+    dismissBtn.Position = UDim2.new(0.5, 6, 1, -48)
+    dismissBtn.Text = "Continue in Offline Mode"
+    dismissBtn.Font = Enum.Font.GothamMedium
+    dismissBtn.TextSize = 12
+    dismissBtn.TextColor3 = Color3.fromRGB(190, 190, 200)
+    dismissBtn.BackgroundColor3 = Color3.fromRGB(36, 38, 50)
+    dismissBtn.BorderSizePixel = 0
+    dismissBtn.ZIndex = 11
+    dismissBtn.Parent = modal
+
+    local dCorner = Instance.new("UICorner")
+    dCorner.CornerRadius = UDim.new(0, 6)
+    dCorner.Parent = dismissBtn
+
+    dismissBtn.MouseButton1Click:Connect(function()
+        modal:Destroy()
+    end)
+end
+
+if not isLocalMode then
+    showMethodNotice()
+end
 
 local mainFrame = Instance.new("Frame")
 mainFrame.Name = "MainFrame"
