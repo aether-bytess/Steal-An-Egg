@@ -53,13 +53,9 @@ if not successCore or not parentGui then
     parentGui = LocalPlayer:WaitForChild("PlayerGui")
 end
 
--- Detect execution source
-local isLocalMode = false
-pcall(function()
-    if typeof(isfile) == "function" and isfile("Steal-An-Egg/StealAnEgg.lua") then
-        isLocalMode = true
-    end
-end)
+-- Execution Mode Verification (Method 1 Cloud vs Method 2 Companion)
+local genv = (typeof(getgenv) == "function" and getgenv()) or _G
+local isMethod2Active = (genv.__COMPANION_ACTIVE == true)
 
 -- Create Hub ScreenGui
 local screenGui = Instance.new("ScreenGui")
@@ -131,7 +127,7 @@ local function showMethodNotice()
 
     copyBtn.MouseButton1Click:Connect(function()
         if typeof(setclipboard) == "function" then
-            setclipboard('loadstring(readfile("Steal-An-Egg/StealAnEgg.lua"))()')
+            setclipboard('getgenv().__COMPANION_ACTIVE = true; loadstring(readfile("Steal-An-Egg/StealAnEgg.lua"))()')
             copyBtn.Text = "Copied to Clipboard!"
             copyBtn.BackgroundColor3 = Color3.fromRGB(40, 140, 80)
         end
@@ -158,7 +154,7 @@ local function showMethodNotice()
     end)
 end
 
-if not isLocalMode then
+if not isMethod2Active then
     showMethodNotice()
 end
 

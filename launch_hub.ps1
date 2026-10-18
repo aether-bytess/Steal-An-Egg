@@ -156,7 +156,7 @@ foreach ($ws in $TargetWorkspaces) {
 }
 
 # 3. Clipboard injection with legacy clip fallback
-$LoadCommand = 'loadstring(readfile("Steal-An-Egg/StealAnEgg.lua"))()'
+$LoadCommand = 'getgenv().__COMPANION_ACTIVE = true; loadstring(readfile("Steal-An-Egg/StealAnEgg.lua"))()'
 
 $copied = $false
 try {
