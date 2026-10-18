@@ -19,7 +19,7 @@ An advanced multi-executor framework for **Steal An Egg** featuring visual diagn
 ### Option 1: Direct Web Loader (Cloud)
 Paste into your executor's execution tab:
 ```lua
-loadstring(game:HttpGet("https://raw.githubusercontent.com/gamesensecoder/Steal-An-Egg/refs/heads/main/StealAnEgg.lua"))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/aether-bytess/Steal-An-Egg/refs/heads/main/StealAnEgg.lua"))()
 ```
 
 ### Option 2: Local Workspace Loader (Host Companion)

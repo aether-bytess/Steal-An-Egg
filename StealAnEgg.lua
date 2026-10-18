@@ -1,11 +1,11 @@
 --[[
     Steal An Egg - Universal Hub
     Target Game: Steal An Egg (Roblox)
-    Author: gamesensecoder
-    Repository: https://github.com/gamesensecoder/Steal-An-Egg
+    Author: aether-bytess
+    Repository: https://github.com/aether-bytess/Steal-An-Egg
 
     Execution:
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/gamesensecoder/Steal-An-Egg/refs/heads/main/StealAnEgg.lua"))()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/aether-bytess/Steal-An-Egg/refs/heads/main/StealAnEgg.lua"))()
     -- or local:
     loadstring(readfile("Steal-An-Egg/StealAnEgg.lua"))()
 ]]

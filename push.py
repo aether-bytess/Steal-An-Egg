@@ -6,7 +6,7 @@ root_dir = os.path.dirname(os.path.abspath(__file__))
 
 env_path = os.path.join(root_dir, '.env')
 token = None
-user = 'gamesensecoder'
+user = 'aether-bytess'
 repo_name = 'Steal-An-Egg'
 
 if os.path.exists(env_path):
