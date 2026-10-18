@@ -1,0 +1,30 @@
+# Secrets & Local Environment
+.env
+.env.*
+*.pem
+*.key
+credentials.json
+token.txt
+
+# Executables & Binaries
+*.exe
+*.dll
+
+# Heavy Roblox Place / Model files
+*.rbxlx
+*.rbxl
+*.rbxm
+
+# Local Workspace & Caches
+workspace/
+.cursor/
+*.log
+tmp/
+temp/
+
+# OS artifacts
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
